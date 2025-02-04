@@ -146,7 +146,6 @@ class Kanji:
 
     @staticmethod
     def meta(soup):
-        res = soup.find_all("div", {"class": "kanji_stats"})[0].find_all("strong")
         return {
             "education": Kanji.meta_education(soup),
             "dictionary_idxs": Kanji.meta_dictionary_idxs(soup),
@@ -211,25 +210,31 @@ class Kanji:
 
     @staticmethod
     def meta_education(soup):
-        res = soup.find_all("div", {"class": "kanji_stats"})[0]  # .find_all("strong")
+        res = soup.find_all("div", {"class": "kanji_stats"})[0]  # .find_all("strong")[0]
 
         try:
             grade = (
                 res.find_all("div", {"class": "grade"})[0]
-                .find_all("strong")
-                .text.split(" ")[-1]
+                .find_all("strong")[0]
+                .text # the grade is sometimes "junior high". shouldn't use .split(" ")[-1]
             )
         except:
             grade = None
 
         try:
-            jlpt = res.find_all("div", {"class": "jlpt"})[0].find_all("strong").text
+            jlpt = (
+                res.find_all("div", {"class": "jlpt"})[0]
+                .find_all("strong")[0]
+                .text
+            )
         except:
             jlpt = None
 
         try:
             frequency = (
-                res.find_all("div", {"class": "frequency"})[0].find_all("strong").text
+                res.find_all("div", {"class": "frequency"})[0]
+                .find_all("strong")[0]
+                .text
             )
         except:
             frequency = None
