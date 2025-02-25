@@ -326,7 +326,7 @@ class Kanji:
 
         if cache and (Kanji.ROOT / (kanji + ".json")).exists():
             toggle = True
-            with open(Kanji.ROOT / (kanji + ".json"), "r") as fp:
+            with open(Kanji.ROOT / (kanji + ".json"), "r", encoding="utf-8") as fp:
                 r = json.load(fp)
             r = KanjiRequest(**r)
         else:
@@ -362,5 +362,5 @@ class Kanji:
     @staticmethod
     def save(word, r):
         Kanji.ROOT.mkdir(exist_ok=True)
-        with open(Kanji.ROOT / f"{word}.json", "w") as fp:
+        with open(Kanji.ROOT / f"{word}.json", "w", encoding="utf-8") as fp:
             json.dump(r.dict(), fp, indent=4, ensure_ascii=False)
