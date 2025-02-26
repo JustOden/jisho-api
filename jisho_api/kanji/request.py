@@ -304,7 +304,7 @@ class Kanji:
             rad_alt_form = None
         rad_span_left = rad_span_left.strip().split(" ")
 
-        rad_meaning = rad_span_left[0]
+        rad_meaning = " ".join(rad_span_left[:-1])
         rad_basis = rad_span_left[-1]
         rad_no = rad[0]["title"].split(" ")[-1][:-1]
         if not rad_no.isdigit():
@@ -351,6 +351,7 @@ class Kanji:
                 }
                 r = KanjiRequest(**r)
             except Exception as e:
+                print(type(e), e)
                 console.print(
                     f"[red bold ][Error][/red bold] [white]No kanji found with name {kanji}."
                 )
