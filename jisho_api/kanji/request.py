@@ -280,9 +280,9 @@ class Kanji:
         try:
             variants = (
                 soup.find_all("dl", {"class": "dictionary_entry variants"})[0]
-                .find("a")
-                .text.split(" ")
+                .find_all("a")
             )
+            variants = [v.text for v in variants]
         except:
             variants = None
 
